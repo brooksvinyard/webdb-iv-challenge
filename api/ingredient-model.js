@@ -3,7 +3,8 @@ const db = require('../data/dbConfig.js');
 
 module.exports = {
     getIngredients,
-    getIngredient
+    getIngredient,
+    addIngredient
 };
 
 function getIngredients() {
@@ -14,4 +15,10 @@ function getIngredient(id) {
     return db('ingredients')
     .where({ id })
     .first();
+};
+
+function addIngredient(ingredient) {
+    return db('ingredients')
+      .insert(ingredient)
+      .then(ids => ({ id: ids[0] }));
 };
