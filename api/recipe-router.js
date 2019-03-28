@@ -26,4 +26,20 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+const errors = {
+    '19': 'Another record with that value exists',
+};
+
+// localhost:5555/api/recipes/
+// POST new recipe 
+router.post('/', async (req, res) => {
+    try {
+        const recipe = await Recipes.addRecipe(req.body);
+        res.status(201).json(recipe);
+    } catch (error) {
+      const message = errors[error.errno] || 'We ran into an error';
+      res.status(500).json({ message, error });
+    }
+});
+
 module.exports = router;
