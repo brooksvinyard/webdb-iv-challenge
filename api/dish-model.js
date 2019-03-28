@@ -3,7 +3,8 @@ const db = require('../data/dbConfig.js');
 
 module.exports = {
     getDishes,
-    getDish
+    getDish,
+    addDish
 };
 
 function getDishes() {
@@ -14,4 +15,11 @@ function getDish(id) {
     return db('dishes')
     .where({ id })
     .first();
+};
+
+function addDish(dish) {
+    console.log(dish);
+    return db('dishes')
+      .insert(dish)
+      .then(ids => ({ id: ids[0] }));
 };
